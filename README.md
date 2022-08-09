@@ -51,5 +51,19 @@ RDB 和 AOF 两种模式
 | lru | 最基本的朴素 LRU 策略，性能一般 |
 | lruDoubleListMap | 基于双向链表+MAP 实现的朴素 LRU，性能优于 lru |
 | lruLinkedHashMap | 基于 LinkedHashMap 实现的朴素 LRU，与 lruDoubleListMap 差不多 |
+# 过期支持
+        ICache<String, String> cache = CacheBs.<String,String>newInstance()
+                .size(4)
+                .build();
+        cache.put("zhangsan", "1");
+        cache.put("lisi", "2");
+        cache.put("wanger", "3");
+        cache.put("mazi", "4");
 
+        cache.expire("mazi", 40);
+        Assert.assertEquals(4, cache.size());
 
+        TimeUnit.MILLISECONDS.sleep(50);
+        Assert.assertEquals(3, cache.size());
+        System.out.println(cache.keySet());
+ cache.expire("mazi", 40);指定对应key在40ms后过期
