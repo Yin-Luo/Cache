@@ -75,7 +75,7 @@ RDB 和 AOF 两种模式
 | Db | 快照 |
 | Aof | 文件追加写操作 |
 - 测试
-       ICache<String, String> cache = CacheBs.<String,String>newInstance()
+-       ICache<String, String> cache = CacheBs.<String,String>newInstance()
                 .build();
         cache.put("zhangsan", "1");
         cache.put("lisi", "2");
@@ -87,7 +87,7 @@ RDB 和 AOF 两种模式
         TimeUnit.SECONDS.sleep(5);
  - 测试结果
  1.rdb文件内容
- {"key":"mazi","value":"4"}
+ - {"key":"mazi","value":"4"}
 {"key":"lisi","value":"2"}
 {"key":"zhangsan","value":"1"}
 {"key":"wanger","value":"3"}
