@@ -72,8 +72,8 @@ RDB 和 AOF 两种模式
  | 持久化机制 | 说明 |
 |:---|:---|
 | none | 没有任何持久化机制 |
-| Db | 快照 |
-| Aof | 文件追加写操作 |
+| RDB | 快照 |
+| AOF | 文件追加写操作 |
 - 测试
 -       ICache<String, String> cache = CacheBs.<String,String>newInstance()
                 .build();
@@ -87,6 +87,8 @@ RDB 和 AOF 两种模式
         TimeUnit.SECONDS.sleep(5);
  - 测试结果
  1.rdb文件内容
+ ![image](https://user-images.githubusercontent.com/93819289/183604173-0fd0ec97-e70b-463f-acf9-da24f66907c2.png)
+
  - {"key":"mazi","value":"4"}
 {"key":"lisi","value":"2"}
 {"key":"zhangsan","value":"1"}
