@@ -42,3 +42,14 @@ RDB 和 AOF 两种模式
 
         Assert.assertEquals(2, cache.size());//true
         System.out.println(cache.keySet());//mazi, wanger
+# 内存淘汰机制
+目前内置了几种内存淘汰策略，可以直接通过CacheEvicts工具类创建
+| 策略 | 说明 |
+|:---|:---|
+| none | 没有任何淘汰策略 |
+| fifo | 先进先出（默认策略） |
+| lru | 最基本的朴素 LRU 策略，性能一般 |
+| lruDoubleListMap | 基于双向链表+MAP 实现的朴素 LRU，性能优于 lru |
+| lruLinkedHashMap | 基于 LinkedHashMap 实现的朴素 LRU，与 lruDoubleListMap 差不多 |
+
+
