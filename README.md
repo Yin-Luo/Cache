@@ -86,11 +86,23 @@ RDB 和 AOF 两种模式
         persist.persist(cache);
         TimeUnit.SECONDS.sleep(5);
  - 测试结果
- 1.rdb文件内容
- ![image](https://user-images.githubusercontent.com/93819289/183604173-0fd0ec97-e70b-463f-acf9-da24f66907c2.png)
-
+ 
+ ![image](https://user-images.githubusercontent.com/93819289/183607211-9f8da2a4-e92c-4916-b598-b50a9c552590.png)
+1.rdb文件内容
  - {"key":"mazi","value":"4"}
 {"key":"lisi","value":"2"}
 {"key":"zhangsan","value":"1"}
 {"key":"wanger","value":"3"}
+# load初始化
+从文件中添加数据到内存
+- 测试
+        ICache<String, String> cache = CacheBs.<String,String>newInstance()
+                .build();
+        ICacheLoad load=new CacheLoadDbJson("1.rdb");
+        load.load(cache);
+        System.out.println(cache.keySet());
+- 测试结果
+![1660035437211](https://user-images.githubusercontent.com/93819289/183608615-4e084fcf-e781-4942-87a6-2dc9ef9d6303.png)
+![image](https://user-images.githubusercontent.com/93819289/183608327-72fbe453-0cf9-4574-9172-f63a8544cf95.png)
+
 
