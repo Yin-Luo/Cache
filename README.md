@@ -30,7 +30,7 @@
 RDB 和 AOF 两种模式
 
 # 入门测试
-//默认先入先出
+        //默认先入先出
         ICache<String, String> cache = CacheBs.<String,String>newInstance()
                 .size(2).build();
 
