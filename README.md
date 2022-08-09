@@ -28,3 +28,17 @@
 - 支持 load 初始化和 persist 持久化
 
 RDB 和 AOF 两种模式
+
+# 入门测试
+//默认先入先出
+        ICache<String, String> cache = CacheBs.<String,String>newInstance()
+                .size(2).build();
+
+
+        cache.put("zhangsan", "1");
+        cache.put("lisi", "2");
+        cache.put("wanger", "3");
+        cache.put("mazi", "4");
+
+        Assert.assertEquals(2, cache.size());//true
+        System.out.println(cache.keySet());//mazi, wanger
