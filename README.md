@@ -75,14 +75,14 @@ RDB 和 AOF 两种模式
 | Db | 快照 |
 | Aof | 文件追加写操作 |
 - 测试
-        ICache<String, String> cache = CacheBs.<String,String>newInstance()
+       ICache<String, String> cache = CacheBs.<String,String>newInstance()
                 .build();
         cache.put("zhangsan", "1");
         cache.put("lisi", "2");
         cache.put("wanger", "3");
         cache.put("mazi", "4");
         Assert.assertEquals(4, cache.size());
-        ICachePersist persist=new CachePersistDbJson("1.rdb");//文件路径
+        ICachePersist persist=new CachePersistDbJson("1.rdb");
         persist.persist(cache);
         TimeUnit.SECONDS.sleep(5);
  - 测试结果
@@ -91,3 +91,4 @@ RDB 和 AOF 两种模式
 {"key":"lisi","value":"2"}
 {"key":"zhangsan","value":"1"}
 {"key":"wanger","value":"3"}
+
