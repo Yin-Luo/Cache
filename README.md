@@ -67,4 +67,10 @@ RDB 和 AOF 两种模式
         Assert.assertEquals(3, cache.size());
         System.out.println(cache.keySet());
  cache.expire("mazi", 40);指定对应key在40ms后过期
- 
+ # 内存数据持久化
+ 目前内置了3中数据持久化机制
+ | 持久化机制 | 说明 |
+|:---|:---|
+| none | 没有任何持久化机制 |
+| Db | 快照 |
+| Aof | 文件追加写操作 |
