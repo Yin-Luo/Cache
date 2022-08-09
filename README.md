@@ -102,13 +102,11 @@ RDB 和 AOF 两种模式
 # load初始化
 从文件中添加数据到内存
 - 测试
+
         ICache<String, String> cache = CacheBs.<String,String>newInstance()
-                .build();
-                
+                .build();<br>
         ICacheLoad load=new CacheLoadDbJson("1.rdb");
-        
         load.load(cache);
-        
         System.out.println(cache.keySet());
         
 - 测试结果
