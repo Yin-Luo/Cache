@@ -63,7 +63,8 @@ RDB 和 AOF 两种模式
         cache.expire("mazi", 40);
         Assert.assertEquals(4, cache.size());
 
-        TimeUnit.MILLISECONDS.sleep(50);
+        TimeUnit.MILLISECONDS.sleep(50);//当前线程睡眠50ms
         Assert.assertEquals(3, cache.size());
         System.out.println(cache.keySet());
  cache.expire("mazi", 40);指定对应key在40ms后过期
+ 
