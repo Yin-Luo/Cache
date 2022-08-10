@@ -114,11 +114,13 @@ RDB 和 AOF 两种模式
 ![1660035437211](https://user-images.githubusercontent.com/93819289/183608615-4e084fcf-e781-4942-87a6-2dc9ef9d6303.png)
 
 ![image](https://user-images.githubusercontent.com/93819289/183608327-72fbe453-0cf9-4574-9172-f63a8544cf95.png)
+# 编码
 ## 1、如何实现固定缓存大小
 缓存能根据键快速查找到值，Map是很好的一个实现。但Map的大小可以无限制增长下去，不能实现淘汰策略。
 ### 1.1 将Map和Queue联合使用，可实现控制缓存的大小和先入先出淘汰策略
-private final Queue<K> queue = new LinkedList<>();
 
+private final Queue<K> queue = new LinkedList<>();
+        
     @Override
     public CacheEntry<K,V> doEvict(ICacheEvictContext<K, V> context) {
         CacheEntry<K,V> result = null;
@@ -135,7 +137,6 @@ private final Queue<K> queue = new LinkedList<>();
         // 将新加的元素放入队尾
         final K key = context.key();
         queue.add(key);
-
         return result;
 
 
