@@ -49,8 +49,7 @@ RDB 和 AOF 两种模式
 | none | 没有任何淘汰策略 |
 | fifo | 先进先出（默认策略） |
 | lru | 最基本的朴素 LRU 策略，性能一般 |
-| lruDoubleListMap | 基于双向链表+MAP 实现的朴素 LRU，性能优于 lru |
-| lruLinkedHashMap | 基于 LinkedHashMap 实现的朴素 LRU，与 lruDoubleListMap 差不多 |
+| lfu | 最基本的朴素 LFU 策略，命中率由于lru |
 # 过期支持
         ICache<String, String> cache = CacheBs.<String,String>newInstance()
                 .size(4)
@@ -138,5 +137,22 @@ private final Queue<K> queue = new LinkedList<>();
         final K key = context.key();
         queue.add(key);
         return result;
+        
+### 1.2、 将Map和LinkedList联合使用，可实现控制缓存的大小和LRU淘汰策略
+        
+     private final List<K> list = new LinkedList<>();
 
+    @Override
+    protected ICacheEntry<K, V> doEvict(ICacheEvictContext<K, V> context) {
+        ICacheEntry<K, V> result = null;
+        final ICache<K,V> cache = context.cache();
+        // 超过限制，移除队尾的元素
+        if(cache.size() >= context.size()) {
+            K evictKey = list.get(list.size()-1);
+            V evictValue = cache.remove(evictKey);
+            result = new CacheEntry<>(evictKey, evictValue);
+        }
+
+        return result;
+    }
 
