@@ -116,10 +116,11 @@ RDB 和 AOF 两种模式
 # 编码
 ## 1、如何实现固定缓存大小
 缓存能根据键快速查找到值，Map是很好的一个实现。但Map的大小可以无限制增长下去，不能实现淘汰策略。
-### 1.1 将Map和Queue联合使用，可实现控制缓存的大小和先入先出淘汰策略
+### 1.1、 将Map和Queue联合使用，可实现控制缓存的大小和先入先出淘汰策略
 
-private final Queue<K> queue = new LinkedList<>();
-        
+
+    private final Queue<K> queue = new LinkedList<>();
+    
     @Override
     public CacheEntry<K,V> doEvict(ICacheEvictContext<K, V> context) {
         CacheEntry<K,V> result = null;
@@ -155,4 +156,21 @@ private final Queue<K> queue = new LinkedList<>();
 
         return result;
     }
+### 1.3、 为每一个<K,V>键值对赋予一个使用频率，每次put操作时淘汰最低频次的键值对
+    @Override
+    protected ICacheEntry<K, V> doEvict(ICacheEvictContext<K, V> context) {
+        ICacheEntry<K, V> result = null;
+        final ICache<K,V> cache = context.cache();
+        // 超过限制，移除频次最低的元素
+        if(cache.size() >= context.size()) {
+            FreqNode<K,V> evictNode = this.getMinFreqNode();
+            K evictKey = evictNode.key();
+            V evictValue = cache.remove(evictKey);
 
+            log.debug("淘汰最小频率信息, key: {}, value: {}, freq: {}",
+                    evictKey, evictValue, evictNode.frequency());
+            result = new CacheEntry<>(evictKey, evictValue);
+        }
+
+        return result;
+    }
